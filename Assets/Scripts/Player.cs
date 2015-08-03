@@ -5,13 +5,15 @@ public class Player : MonoBehaviour
 {
     public static Player current;
 
-    private Vector3 vMove, vDir;
+    private Vector2 vMove, vDir;
 
     public Transform Root, Body, BulletExtractor;
     public Camera MainCamera;
 
     [Range(1, 20)]
     public float CharacterSpeed;
+
+    private Rigidbody2D rigidbody;   
 
     void Awake()
     {
@@ -21,7 +23,7 @@ public class Player : MonoBehaviour
 	// Use this for initialization
 	void Start () 
     {
-	
+        rigidbody = GetComponent<Rigidbody2D>();
 	}
 
     void Fire()
@@ -36,16 +38,15 @@ public class Player : MonoBehaviour
     void Control()
     {
         // Move
-        vMove.Set(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"), 0.0f);
+        vMove.Set(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
         vMove.Normalize();        
 
         // Mouse look
-        vDir = MainCamera.ScreenToWorldPoint(Input.mousePosition) - Root.position;
-        vDir.z = 0;
+        vDir = MainCamera.ScreenToWorldPoint(Input.mousePosition) - Root.position;        
         vDir.Normalize();
 
         // Apply movement and look
-        Root.position += vMove * CharacterSpeed * Time.deltaTime;
+        this.rigidbody.MovePosition(this.rigidbody.position + vMove * CharacterSpeed * Time.deltaTime);        
         Body.up = vDir;
 
         // Check fire

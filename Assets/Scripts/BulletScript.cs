@@ -33,8 +33,8 @@ public class BulletScript : MonoBehaviour
         {
             var obj = Instantiate<GameObject>(BloodParticles);
             obj.transform.position = transform.position;
-        }
-        Debug.Log(tag);
+            obj.transform.up = this.transform.up;            
+        }        
         Destroy();
     }
 }
