@@ -13,7 +13,7 @@ public class Player : MonoBehaviour
     [Range(1, 20)]
     public float CharacterSpeed;
 
-    private Rigidbody2D rigidbody;   
+    private Rigidbody2D rigidBody;   
 
     void Awake()
     {
@@ -23,7 +23,7 @@ public class Player : MonoBehaviour
 	// Use this for initialization
 	void Start () 
     {
-        rigidbody = GetComponent<Rigidbody2D>();
+        rigidBody = GetComponent<Rigidbody2D>();
 	}
 
     void Fire()
@@ -46,7 +46,7 @@ public class Player : MonoBehaviour
         vDir.Normalize();
 
         // Apply movement and look
-        this.rigidbody.MovePosition(this.rigidbody.position + vMove * CharacterSpeed * Time.deltaTime);        
+        this.rigidBody.MovePosition(this.rigidBody.position + vMove * CharacterSpeed * Time.deltaTime);        
         Body.up = vDir;
 
         // Check fire
